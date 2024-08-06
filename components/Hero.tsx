@@ -7,7 +7,7 @@ export default function Hero() {
     <div id="hero" className="relative isolate px-4">
       <div
         aria-hidden="true"
-        className="absolute bottom-0 left-1/2 -z-10 -translate-x-1/2 blur-3xl"
+        className="pointer-events-none absolute bottom-0 left-1/2 -z-10 -translate-x-1/2 blur-3xl"
       >
         <div
           style={{
@@ -17,19 +17,19 @@ export default function Hero() {
           className="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-stone-500 to-stone-800 opacity-30"
         />
       </div>
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between">
-        <div className="mx-auto grid w-full gap-6 text-center lg:mx-0 lg:max-w-xl lg:flex-auto lg:text-left">
+      <div className="mx-auto flex max-w-xl flex-wrap items-center justify-between lg:max-w-7xl">
+        <div className="mb-8 grid w-full gap-6 lg:mb-0 lg:max-w-xl lg:flex-auto">
           <p className="font-semibold text-stone-500">🪦 Welcome to 1000 Dead Ideas</p>
           <h1 className="text-3xl font-bold tracking-tight text-stone-100 sm:text-4xl">
             Do you want to build a side project, start a business, or launch a micro SaaS?{' '}
             <span className="text-amber-100">Resurrect one instead!</span>
           </h1>
           <p className="text-lg leading-8 text-stone-300">
-            Over the years I've had a lot of ideas in all shapes and forms. Sadly, I had to abandon
-            most of them for various reasons. Maybe you will find something interesting and bring it
-            back to life?
+            Over the years I&apos;ve had a lot of ideas in all shapes and forms. Sadly, I had to
+            abandon most of them for various reasons. Maybe you will find something interesting and
+            bring it back to life?
           </p>
-          <div className="flex items-center justify-center gap-x-6 lg:justify-start">
+          <div className="flex items-center justify-start gap-x-6">
             <a
               href="#list"
               className="flex rounded-md bg-amber-100 px-3.5 py-2.5 text-sm font-semibold text-stone-800 shadow-sm hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"

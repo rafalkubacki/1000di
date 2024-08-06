@@ -1,4 +1,4 @@
-export async function getIdeas() {
+export async function getIdea(slug: string) {
   const res = await fetch(
     'https://eu-central-1-shared-euc1-02.cdn.hygraph.com/content/clzadjpto01jg08w1dy3bbemu/master',
     {
@@ -9,7 +9,7 @@ export async function getIdeas() {
       },
       body: JSON.stringify({
         query: `{
-          projects(orderBy: dateAbandoned_DESC) {
+          project(where: {slug: "${slug}"}) {
             id
             icon {
               url
@@ -43,5 +43,5 @@ export async function getIdeas() {
 
   const { data } = await res.json();
 
-  return data.projects;
+  return data.project;
 }
