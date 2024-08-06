@@ -15,17 +15,25 @@ const getIdea = async (params) => {
       body: JSON.stringify({
         query: `{
           project(where: {slug: "${params.slug}"}) {
-            slug,
-            title,
-            subtitle,
-            description,
-            date,
-            votes,
-            complexity,
-            time,
-            domain,
+            id
             icon {
               url
+            }
+            title
+            slug
+            subtitle
+            description
+            demoUrl
+            assetsUrl
+            sourceUrl
+            designUrl
+            dateAbandoned
+            type
+            coverImage {
+              url
+            }
+            content {
+              html
             }
           }
         }`,

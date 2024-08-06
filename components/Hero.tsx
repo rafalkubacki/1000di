@@ -26,8 +26,8 @@ export default function Hero() {
           </h1>
           <p className="text-lg leading-8 text-stone-300">
             Over the years I've had a lot of ideas in all shapes and forms. Sadly, I had to abandon
-            most of them for various reasons. Maybe you will find something interesting and bring
-            one back to life?
+            most of them for various reasons. Maybe you will find something interesting and bring it
+            back to life?
           </p>
           <div className="flex items-center justify-center gap-x-6 lg:justify-start">
             <a

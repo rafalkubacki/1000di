@@ -9,22 +9,29 @@ export async function getIdeas() {
       },
       body: JSON.stringify({
         query: `{
-            projects(orderBy: date_DESC) {
-              id,
-              slug,
-              title,
-              subtitle,
-              description,
-              date,
-              votes,
-              complexity,
-              time,
-              domain,
-              icon {
-                url
-              }
+          projects(orderBy: dateAbandoned_DESC) {
+            id
+            icon {
+              url
             }
-          }`,
+            title
+            slug
+            subtitle
+            description
+            demoUrl
+            assetsUrl
+            sourceUrl
+            designUrl
+            dateAbandoned
+            type
+            coverImage {
+              url
+            }
+            content {
+              html
+            }
+          }
+        }`,
       }),
     },
   );

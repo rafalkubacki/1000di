@@ -4,9 +4,17 @@ import TimeagoComponent from '@/components/TimeagoComponent';
 import { complexityList, domainList, timeList } from '@/utils';
 import {
   AcademicCapIcon,
+  ArrowTopRightOnSquareIcon,
   CalendarDaysIcon,
+  CheckIcon,
+  CodeBracketIcon,
+  FolderArrowDownIcon,
   HeartIcon,
+  LinkIcon,
+  PaintBrushIcon,
+  PaperClipIcon,
   PuzzlePieceIcon,
+  XMarkIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -33,56 +41,80 @@ export default async function IdeasPage() {
           className="divide-y divide-stone-700 overflow-auto rounded-xl border-8 border-stone-800"
         >
           {data.map((item) => (
-            <li key={item.slug} className="group grid grid-cols-6 gap-x-8 p-6 hover:bg-stone-800">
+            <li key={item.slug}>
               <Link
                 href={`/idea/${item.slug}`}
-                className="flex-start col-span-4 flex items-center gap-x-8"
+                className="group grid w-full grid-cols-6 gap-x-8 p-6 hover:bg-stone-800"
               >
-                {item.icon && <Image alt={item.title} src={item.icon.url} width={64} height={64} />}
-                <div>
-                  <h3 className="text-md leading-6 text-stone-300">
-                    <span className="font-semibold text-stone-100">{item.title}</span>
-                    {item.subtitle && <span> - {item.subtitle}</span>}
-                  </h3>
-                  <div className="mt-2 max-w-xl text-sm leading-6 text-stone-500">
-                    {item.description}
+                <div className="flex-start col-span-4 flex w-full items-center gap-x-8">
+                  {item.icon && (
+                    <Image alt={item.title} src={item.icon.url} width={64} height={64} />
+                  )}
+                  <div>
+                    <h3 className="text-md leading-6 text-stone-300">
+                      <span className="font-semibold text-stone-100">{item.title}</span>
+                      {item.subtitle && <span> - {item.subtitle}</span>}
+                    </h3>
+                    <div className="mt-2 max-w-xl text-sm leading-6 text-stone-500">
+                      {item.description}
+                    </div>
                   </div>
                 </div>
+                <div className="grid gap-2 text-xs leading-5 text-stone-300">
+                  <div className="flex items-center gap-1">
+                    <LinkIcon aria-label="Complexity" className="h-5 w-5" />
+                    <span className="ml-1 font-semibold">Demo:</span>
+                    {item.demoUrl ? (
+                      <CheckIcon aria-hidden="true" className="h-5 w-5 text-green-500" />
+                    ) : (
+                      <XMarkIcon aria-hidden="true" className="h-5 w-5 text-red-500" />
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <PaperClipIcon aria-label="Complexity" className="h-5 w-5" />
+                    <span className="ml-1 font-semibold">Assets:</span>
+                    {item.assetsUrl ? (
+                      <CheckIcon aria-hidden="true" className="h-5 w-5 text-green-500" />
+                    ) : (
+                      <XMarkIcon aria-hidden="true" className="h-5 w-5 text-red-500" />
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <PaintBrushIcon aria-label="Complexity" className="h-5 w-5" />
+                    <span className="ml-1 font-semibold">Design:</span>
+                    {item.designUrl ? (
+                      <CheckIcon aria-hidden="true" className="h-5 w-5 text-green-500" />
+                    ) : (
+                      <XMarkIcon aria-hidden="true" className="h-5 w-5 text-red-500" />
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <CodeBracketIcon aria-label="Complexity" className="h-5 w-5" />
+                    <span className="ml-1 font-semibold">Source:</span>
+                    {item.sourceUrl ? (
+                      <CheckIcon aria-hidden="true" className="h-5 w-5 text-green-500" />
+                    ) : (
+                      <XMarkIcon aria-hidden="true" className="h-5 w-5 text-red-500" />
+                    )}
+                  </div>
+                </div>
+                <div className="grid items-center gap-2 text-center text-xs text-stone-300">
+                  {item.type && (
+                    <div>
+                      <div className="font-semibold">Project type:</div>
+                      <div className="mt-1 text-stone-500">{item.type}</div>
+                    </div>
+                  )}
+                  {item.dateAbandoned && (
+                    <div>
+                      <div className="font-semibold">Abandoned:</div>
+                      <div className="mt-1 text-stone-500">
+                        <TimeagoComponent date={item.dateAbandoned} />
+                      </div>
+                    </div>
+                  )}
+                </div>
               </Link>
-              <div className="grid gap-2 text-xs leading-5 text-stone-300">
-                {item.complexity && (
-                  <div className="flex items-center gap-1">
-                    <PuzzlePieceIcon aria-label="Complexity" className="h-5 w-5" />
-                    {complexityList[item.complexity]}
-                  </div>
-                )}
-                {item.time && (
-                  <div className="flex items-center gap-1">
-                    <CalendarDaysIcon aria-label="Time" className="h-5 w-5" />
-                    {timeList[item.time]}
-                  </div>
-                )}
-                {item.domain && (
-                  <div className="flex items-center gap-1">
-                    <AcademicCapIcon aria-label="Domain" className="h-5 w-5" />
-                    {domainList[item.domain]}
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col items-center justify-start text-center">
-                <button className="flex h-16 w-16 flex-col items-center justify-center rounded-md bg-amber-100 p-2 text-stone-800 transition-colors hover:bg-amber-200">
-                  <HeartIcon aria-hidden="true" className="h-5 w-5" />
-                  <div className="mt-1 text-xs leading-5">{item.votes}</div>
-                </button>
-                {item.date && (
-                  <div className="mt-2 whitespace-nowrap text-xs text-stone-500">
-                    Abandoned
-                    <span className="block font-medium">
-                      <TimeagoComponent date={item.date} />
-                    </span>
-                  </div>
-                )}
-              </div>
             </li>
           ))}
         </ul>
