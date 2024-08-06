@@ -1,6 +1,37 @@
+'use client';
+
+import { useState } from 'react';
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline';
 
 export default function Newsletter() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState(0);
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+    setMessage(data.message);
+    setStatus(res.status);
+
+    if (res.status === 200) {
+      setEmail('');
+
+      setTimeout(() => {
+        setMessage('');
+        setStatus(0);
+      }, 3000);
+    }
+  };
+
   return (
     <div id="newsletter" className="relative isolate overflow-hidden px-4">
       <div className="mx-auto max-w-7xl">
@@ -13,7 +44,7 @@ export default function Newsletter() {
               Digging up projects from the past is quite time consuming. Receive all new ideas as
               soon as I garter the information.
             </p>
-            <div className="mt-6 flex max-w-md gap-x-4">
+            <form onSubmit={handleSubmit} className="mt-6 flex max-w-md gap-x-4">
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
@@ -22,6 +53,8 @@ export default function Newsletter() {
                 name="email"
                 type="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 autoComplete="email"
                 className="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
@@ -32,7 +65,12 @@ export default function Newsletter() {
               >
                 Subscribe
               </button>
-            </div>
+            </form>
+            {message && (
+              <p className={`${status === 200 ? 'text-green-300' : 'text-red-500'} mt-4 text-sm`}>
+                {message}
+              </p>
+            )}
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
             <div className="flex flex-col items-start">

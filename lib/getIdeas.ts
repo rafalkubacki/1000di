@@ -9,7 +9,7 @@ export async function getIdeas() {
       },
       body: JSON.stringify({
         query: `{
-            projects {
+            projects(orderBy: date_DESC) {
               id,
               slug,
               title,
