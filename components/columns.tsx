@@ -29,6 +29,12 @@ export const columns: ColumnDef<Idea, any>[] = [
     filterFn: 'includesString',
   },
   {
+    accessorKey: 'featured',
+    enableGlobalFilter: false,
+    enableSorting: false,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Featured" />,
+  },
+  {
     accessorKey: 'subtitle',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Subtitle" />,
     filterFn: 'includesString',

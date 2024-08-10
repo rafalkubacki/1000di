@@ -76,8 +76,8 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  // const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  // const [rowSelection, setRowSelection] = React.useState({});
   const [globalFilter, setGlobalFilter] = React.useState('');
 
   const [pagination, setPagination] = React.useState<PaginationState>({
@@ -97,8 +97,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
+    // onColumnVisibilityChange: setColumnVisibility,
+    // onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
     onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: 'fuzzy',
@@ -109,12 +109,15 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           desc: true,
         },
       ],
+      columnVisibility: {
+        featured: false,
+      },
     },
     state: {
       sorting,
       columnFilters,
-      columnVisibility,
-      rowSelection,
+      // columnVisibility,
+      // rowSelection,
       pagination,
       globalFilter,
     },
@@ -130,6 +133,19 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
             onChange={(event) => setGlobalFilter(event.target.value)}
             className="max-w-sm"
           />
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="featured"
+              checked={table.getColumn('featured')?.getFilterValue() as boolean}
+              onCheckedChange={(checked) => table.getColumn('featured')?.setFilterValue(checked)}
+            />
+            <label
+              htmlFor="featured"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Featured
+            </label>
+          </div>
           <div className="flex items-center space-x-2">
             <Checkbox
               id="demoUrl"
@@ -206,7 +222,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="relative">
                       <Link
-                        href={`/${row.original.slug}`}
+                        href={`/${row.getValue('slug')}`}
                         className="absolute inset-0 focus:outline-none"
                       ></Link>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
