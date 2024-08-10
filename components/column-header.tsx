@@ -28,7 +28,7 @@ export function DataTableColumnHeader<TData, TValue>({
       ) : column.getIsSorted() === 'asc' ? (
         <ArrowUpIcon className="ml-1 h-4 w-4" />
       ) : (
-        <ArrowUpDown className="ml-1 h-4 w-4 text-muted-foreground" />
+        <ArrowUpDown className="ml-1 h-4 w-4" />
       )}
     </Button>
   );

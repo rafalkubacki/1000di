@@ -1,7 +1,5 @@
 import Image from 'next/image';
 import HeroImage from '../public/hero.png';
-import { Button } from './ui/button';
-import { NewsletterForm } from './newsletter-form';
 
 export default function Hero() {
   return (

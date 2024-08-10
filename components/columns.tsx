@@ -8,7 +8,7 @@ import { CheckIcon, X } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 
-export const columns: ColumnDef<Idea>[] = [
+export const columns: ColumnDef<Idea, any>[] = [
   {
     accessorKey: 'title',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
@@ -26,19 +26,21 @@ export const columns: ColumnDef<Idea>[] = [
         )}
       </div>
     ),
+    filterFn: 'includesString',
   },
   {
     accessorKey: 'subtitle',
-    enableSorting: false,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Subtitle" />,
+    filterFn: 'includesString',
   },
   {
     accessorKey: 'type',
-    enableSorting: false,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Type" />,
+    filterFn: 'includesString',
   },
   {
     accessorKey: 'demoUrl',
+    enableGlobalFilter: false,
     enableSorting: false,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Demo" />,
     cell: ({ row }) =>
@@ -47,9 +49,11 @@ export const columns: ColumnDef<Idea>[] = [
       ) : (
         <X aria-hidden="true" className="h-4 w-4 text-red-500" />
       ),
+    filterFn: 'includesString',
   },
   {
     accessorKey: 'assetsUrl',
+    enableGlobalFilter: false,
     enableSorting: false,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Assets" />,
     cell: ({ row }) =>
@@ -58,10 +62,13 @@ export const columns: ColumnDef<Idea>[] = [
       ) : (
         <X aria-hidden="true" className="h-4 w-4 text-red-500" />
       ),
+    filterFn: 'includesString',
   },
   {
     accessorKey: 'abandoned',
+    enableGlobalFilter: false,
     header: ({ column }) => <DataTableColumnHeader column={column} title="Abandoned" />,
     cell: ({ row }) => <TimeagoComponent date={row.original.dateAbandoned} />,
+    sortingFn: (a, b) => (a ? -1 : b ? 1 : 0),
   },
 ];
