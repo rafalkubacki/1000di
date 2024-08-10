@@ -1,12 +1,12 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { Idea } from '@/lib/getIdeas';
 import TimeagoComponent from './TimeagoComponent';
 import { DataTableColumnHeader } from './column-header';
 import { CheckIcon, X } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Idea } from '@/types';
 
 export const columns: ColumnDef<Idea, any>[] = [
   {

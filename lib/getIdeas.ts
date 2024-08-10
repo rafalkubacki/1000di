@@ -1,38 +1,14 @@
-export type Idea = {
-  id: string;
-  icon: {
-    url: string;
-  };
-  featured: boolean;
-  title: string;
-  slug: string;
-  subtitle: string;
-  description: string;
-  demoUrl: string;
-  assetsUrl: string;
-  sourceUrl: string;
-  designUrl: string;
-  dateAbandoned: string;
-  type: string;
-  coverImage: {
-    url: string;
-  };
-  content: {
-    html: string;
-  };
-};
+import { Idea } from '@/types';
 
 export async function getIdea(slug: string): Promise<Idea> {
-  const res = await fetch(
-    'https://eu-central-1-shared-euc1-02.cdn.hygraph.com/content/clzadjpto01jg08w1dy3bbemu/master',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        query: `{
+  const res = await fetch(process.env.GRAPHQL_ENDPOINT || '', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      query: `{
           project(where: {slug: "${slug}"}) {
             id
             icon {
@@ -57,10 +33,9 @@ export async function getIdea(slug: string): Promise<Idea> {
             }
           }
         }`,
-      }),
-      next: { revalidate: 3600 },
-    },
-  );
+    }),
+    next: { revalidate: 3600 },
+  });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -72,16 +47,14 @@ export async function getIdea(slug: string): Promise<Idea> {
 }
 
 export async function getIdeas(): Promise<Idea[]> {
-  const res = await fetch(
-    'https://eu-central-1-shared-euc1-02.cdn.hygraph.com/content/clzadjpto01jg08w1dy3bbemu/master',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        query: `{
+  const res = await fetch(process.env.GRAPHQL_ENDPOINT || '', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      query: `{
           projects(orderBy: dateAbandoned_DESC) {
             id
             icon {
@@ -106,10 +79,9 @@ export async function getIdeas(): Promise<Idea[]> {
             }
           }
         }`,
-      }),
-      next: { revalidate: 3600 },
-    },
-  );
+    }),
+    next: { revalidate: 3600 },
+  });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');

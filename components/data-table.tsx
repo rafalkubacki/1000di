@@ -67,13 +67,17 @@ import { Input } from '@/components/ui/input';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Checkbox } from './ui/checkbox';
 import Link from 'next/link';
+import { Idea } from '@/types';
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends Idea, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData extends Idea, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   // const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -136,8 +140,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           <div className="flex items-center space-x-2">
             <Checkbox
               id="featured"
-              checked={table.getColumn('featured')?.getFilterValue() as boolean}
-              onCheckedChange={(checked) => table.getColumn('featured')?.setFilterValue(checked)}
+              onCheckedChange={(checked) =>
+                table.getColumn('featured')?.setFilterValue(checked ? true : undefined)
+              }
             />
             <label
               htmlFor="featured"
@@ -149,7 +154,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           <div className="flex items-center space-x-2">
             <Checkbox
               id="demoUrl"
-              checked={(table.getColumn('demoUrl')?.getFilterValue() as string) ? true : false}
               onCheckedChange={(checked) =>
                 table.getColumn('demoUrl')?.setFilterValue(checked ? 'http' : '')
               }
@@ -164,7 +168,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           <div className="flex items-center space-x-2">
             <Checkbox
               id="assetsUrl"
-              checked={(table.getColumn('assetsUrl')?.getFilterValue() as string) ? true : false}
               onCheckedChange={(checked) =>
                 table.getColumn('assetsUrl')?.setFilterValue(checked ? 'http' : '')
               }
@@ -222,7 +225,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="relative">
                       <Link
-                        href={`/${row.getValue('slug')}`}
+                        href={`/${row.original.slug}`}
                         className="absolute inset-0 focus:outline-none"
                       ></Link>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
