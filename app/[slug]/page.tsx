@@ -1,4 +1,4 @@
-import { getIdea } from '@/lib/getIdea';
+import { getIdea } from '@/lib/getIdeas';
 import {
   ArrowLeftIcon,
   CodeBracketIcon,

@@ -19,7 +19,7 @@ export default function IdeasPage({ data }: { data: any[] }) {
 
   return (
     <div id="list" className="relative isolate px-4">
-      <div className="mx-auto grid max-w-xl gap-6 pb-8 sm:pb-16 lg:max-w-4xl lg:justify-center lg:text-center">
+      {/* <div className="mx-auto grid max-w-xl gap-6 pb-8 sm:pb-16 lg:max-w-4xl lg:justify-center lg:text-center">
         <p className="font-semibold text-stone-500">Stop procrastinating, start now</p>
         <h2 className="text-3xl font-bold tracking-tight text-stone-100 sm:text-4xl">
           Find your next project, startup idea, or a side hustle.
@@ -29,9 +29,10 @@ export default function IdeasPage({ data }: { data: any[] }) {
           They come from various domains, but mostly from web development, UX/UI design, digital
           marketing, productivity, and video games.
         </p>
-      </div>
+      </div> */}
       <div className="mx-auto max-w-xl lg:max-w-7xl">
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-between">
+          <input placeholder="Search for projects" />
           <button
             className="mb-4 flex items-center justify-center gap-1 rounded-lg bg-stone-800 px-4 py-2 text-sm font-semibold text-stone-300 shadow-sm transition-colors hover:bg-stone-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             onClick={() => setShowDetails(!showDetails)}

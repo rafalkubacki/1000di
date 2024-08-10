@@ -1,9 +1,7 @@
-import Features from '@/components/Features';
-import Newsletter from '@/components/Newsletter';
 import Hero from '@/components/Hero';
-import List from '@/components/List';
 import { getIdeas } from '@/lib/getIdeas';
-
+import { columns } from '../components/columns';
+import { DataTable } from '../components/data-table';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -16,11 +14,9 @@ export default async function Page() {
   const data = await getIdeas();
 
   return (
-    <div className="grid gap-20 py-20 lg:gap-40">
+    <div className="grid gap-8 py-8 lg:gap-12 lg:py-12">
       <Hero />
-      <Features />
-      <List data={data} />
-      <Newsletter />
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }

@@ -1,4 +1,14 @@
-import './globals.css';
+import NavBar from '@/components/NavBar';
+import '@/styles/globals.css';
+import { Inter as FontSans } from 'next/font/google';
+import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/components/theme-provider';
+import Footer from '@/components/footer';
+
+const fontSans = FontSans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+});
 
 export default function RootLayout({
   children,
@@ -6,8 +16,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth focus:scroll-auto">
-      <body className="text-pretty bg-stone-900 text-stone-100">{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={fontSans.variable}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          {/* <NavBar /> */}
+          {children}
+          <Footer />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
