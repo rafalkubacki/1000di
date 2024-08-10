@@ -5,6 +5,16 @@ import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import Footer from '@/components/footer';
 
+export const metadata = {
+  metadataBase: new URL('https://1000deadideas.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    images: '/opengraph-image.png',
+  },
+};
+
 const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans',

@@ -34,7 +34,7 @@ export async function getIdea(slug: string): Promise<Idea> {
           }
         }`,
     }),
-    next: { revalidate: 3600 },
+    next: { revalidate: 60 },
   });
 
   if (!res.ok) {
@@ -64,23 +64,14 @@ export async function getIdeas(): Promise<Idea[]> {
             title
             slug
             subtitle
-            description
+            type
             demoUrl
             assetsUrl
-            sourceUrl
-            designUrl
             dateAbandoned
-            type
-            coverImage {
-              url
-            }
-            content {
-              html
-            }
           }
         }`,
     }),
-    next: { revalidate: 3600 },
+    next: { revalidate: 300 },
   });
 
   if (!res.ok) {
